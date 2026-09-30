@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.openmrs.org/routes.schema.json",
+  "pages": [
+    {
+      "route": "pharmacy-tariffs",
+      "component": "root",
+      "online": true
+    }
+  ],
+  "extensions": [
+      {
+      "name": "pharmacy-tariffs-app-menu-link",
+      "slot": "app-menu-slot",
+      "component": "pharmacyTariffsAppMenuLink",
+      "online": true,
+      "offline": false,
+      "meta": {
+        "name": "Pharmacy Tariffs",
+        "appName": "pharmacy-tariffs"
+      }
+    },
+    {
+      "name": "hmo-copay-editor",
+      "slot": "hmo-copay-slot",
+      "component": "coPayEditor",
+      "online": true,
+      "offline": false,
+      "meta": {
+        "name": "HMO Co-Pay Editor",
+        "appName": "pharmacy-tariffs"
+      }
+    }
+  ]
+}

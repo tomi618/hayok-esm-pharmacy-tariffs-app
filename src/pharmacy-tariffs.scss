@@ -1,0 +1,427 @@
+// Colours come from Carbon theme variables (--cds-*), so this page follows
+// whatever theme the OpenMRS app is using. The hex values after each variable
+// are only a fallback if the variable is missing.
+
+.page {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 1.25rem;
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--cds-text-primary, #161616);
+  }
+
+  p {
+    margin: 0.25rem 0 0;
+    color: var(--cds-text-secondary, #525252);
+    font-size: 0.875rem;
+  }
+}
+
+/* ---------- Layout ---------- */
+
+// minmax(0, 1fr) lets the column shrink below its content's natural width.
+// A plain 1fr won't, and that is what pushes things out of their container.
+.layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+// HMO panel hidden: drugs take the full width
+.layoutFull {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.panel {
+  background: var(--cds-layer-01, #fff);
+  border: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+  // "clip" behaves like hidden for the rounded corners, but (unlike hidden)
+  // it doesn't break position: sticky on the save bar.
+  overflow: clip;
+  min-width: 0;
+}
+
+.panelHeader {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--cds-text-primary, #161616);
+  }
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* ---------- HMO list ---------- */
+
+.hmoList {
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 0.35rem;
+}
+
+.hmoItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0.65rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--cds-text-primary, #161616);
+
+  &:hover {
+    background: var(--cds-layer-hover-01, #e8e8e8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cds-focus, #0f62fe);
+    outline-offset: -2px;
+  }
+
+  &Selected {
+    background: var(--cds-layer-selected-01, #e0e0e0);
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--cds-interactive, #0f62fe);
+  }
+}
+
+.hmoMeta {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--cds-text-secondary, #525252);
+  margin-top: 0.15rem;
+}
+
+.copaySection {
+  padding: 0.85rem 1rem 1rem;
+  border-top: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--cds-text-primary, #161616);
+  }
+}
+
+// The save button used to go outside the box because an <input> has a
+// minimum width of its own. min-width: 0 lets it shrink, and the button
+// keeps its size with flex-shrink: 0.
+.copayRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+
+  input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0 0.75rem;
+    min-height: 2.5rem;
+    border: none;
+    border-bottom: 1px solid var(--cds-border-strong-01, #8d8d8d);
+    background: var(--cds-field-01, #f4f4f4);
+    color: var(--cds-text-primary, #161616);
+    font: inherit;
+    font-size: 0.875rem;
+
+    &:focus {
+      outline: 2px solid var(--cds-focus, #0f62fe);
+      outline-offset: -2px;
+    }
+  }
+
+  :global(.cds--btn) {
+    flex-shrink: 0;
+  }
+}
+
+/* ---------- Search ---------- */
+
+.searchInput {
+  width: min(280px, 100%);
+  min-height: 2.25rem;
+  padding: 0 0.75rem;
+  border: none;
+  border-bottom: 1px solid var(--cds-border-strong-01, #8d8d8d);
+  background: var(--cds-field-01, #f4f4f4);
+  color: var(--cds-text-primary, #161616);
+  font: inherit;
+  font-size: 0.875rem;
+
+  &:focus {
+    outline: 2px solid var(--cds-focus, #0f62fe);
+    outline-offset: -2px;
+  }
+}
+
+/* ---------- Table ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+  min-height: 280px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: var(--cds-text-primary, #161616);
+
+  th,
+  td {
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+  }
+
+  th {
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    color: var(--cds-text-secondary, #525252);
+    background: var(--cds-layer-accent-01, #e0e0e0);
+  }
+
+  tbody tr:hover {
+    background: var(--cds-layer-hover-01, #e8e8e8);
+  }
+}
+
+.colPrice {
+  width: 10rem;
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+}
+
+.priceInput {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.25rem;
+  padding: 0 0.6rem;
+  border: none;
+  border-bottom: 1px solid var(--cds-border-strong-01, #8d8d8d);
+  background: var(--cds-field-01, #f4f4f4);
+  color: var(--cds-text-primary, #161616);
+  font: inherit;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+
+  &:focus {
+    outline: 2px solid var(--cds-focus, #0f62fe);
+    outline-offset: -2px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Edited but not saved yet
+.priceChanged {
+  box-shadow: inset 0 -2px 0 var(--cds-interactive, #0f62fe);
+}
+
+// Typed something that isn't a valid price
+.priceInvalid {
+  outline: 2px solid var(--cds-support-error, #da1e28);
+  outline-offset: -2px;
+}
+
+.muted {
+  color: var(--cds-text-secondary, #525252);
+  font-size: 0.8rem;
+}
+
+.center {
+  text-align: center !important;
+}
+
+/* ---------- Pagination + save bar ---------- */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+}
+
+.pageInfo {
+  font-size: 0.875rem;
+  color: var(--cds-text-secondary, #525252);
+  text-align: center;
+}
+
+// Stays at the bottom of the screen while there are unsaved prices
+.saveBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--cds-layer-01, #fff);
+  border-top: 1px solid var(--cds-border-subtle-01, #e0e0e0);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cds-text-primary, #161616);
+}
+
+.saveBarActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ---------- Banner ---------- */
+
+.banner {
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.bannerInfo {
+  background: var(--cds-notification-background-info, #edf5ff);
+  color: var(--cds-text-primary, #161616);
+}
+
+.bannerSuccess {
+  background: var(--cds-notification-background-success, #defbe6);
+  color: var(--cds-text-primary, #161616);
+}
+
+.bannerError {
+  background: var(--cds-notification-background-error, #fff1f1);
+  color: var(--cds-text-primary, #161616);
+}
+
+/* ---------- Loading overlay ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 22, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+}
+
+.overlayCard {
+  background: var(--cds-layer-01, #fff);
+  border-radius: 8px;
+  padding: 1.75rem 2rem;
+  text-align: center;
+  min-width: 240px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+  p {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    color: var(--cds-text-secondary, #525252);
+  }
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  border: 3px solid var(--cds-border-subtle-01, #e0e0e0);
+  border-top-color: var(--cds-interactive, #0f62fe);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 800px) {
+  .page {
+    padding: 0.75rem;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panelHeader {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .colPrice {
+    width: 7.5rem;
+  }
+
+  // Page info gets its own line above the buttons
+  .pageInfo {
+    order: -1;
+    width: 100%;
+  }
+
+  .saveBar {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .saveBarActions {
+    margin-left: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner {
+      animation-duration: 2s;
+    }
+  }
+}
